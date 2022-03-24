@@ -51,8 +51,8 @@ impl Feed {
         let mut data = format!(
             r#"<rss version="2.0">
     <channel>
-        <title>{:#?}</title>
-        <link>{:#?}</link>"#,
+        <title>{}</title>
+        <link>{}</link>"#,
             self.title, self.url_base
         );
         match &self.description {
@@ -81,20 +81,16 @@ impl Feed {
                     Err(_) => SystemTime::now(),
                 };
                 let pub_date = DateTime::<Utc>::from(date).to_rfc2822();
+                let fname = v.file_name().to_string_lossy().to_string();
                 let article = format!(
                     "
         <item>
-            <title>{:#?}</title>
+            <title>{}</title>
             <guid>{}</guid>
             <pubDate>{}</pubDate>
         </item>",
-                    v.file_name(),
-                    format!(
-                        "{}/{}/{:#?}",
-                        self.url_base,
-                        self.page_folder,
-                        v.file_name()
-                    ),
+                    fname.split(".").nth(0).unwrap(),
+                    format!("{}/{}/{}", self.url_base, self.page_folder, fname),
                     format!("{} GMT", &pub_date[..pub_date.len() - 6])
                 );
                 data.push_str(&article);

@@ -6,7 +6,7 @@ fn main() {
         &"./examples",
         Some(&"output.xml"),
         &"pages",
-        &"Example url!",
+        &"https://exampleWebsite.com",
         Some(&"Example Description!"),
     );
     rss.generate().unwrap();
