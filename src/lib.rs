@@ -89,7 +89,7 @@ impl Feed {
             <guid>{}</guid>
             <pubDate>{}</pubDate>
         </item>",
-                    fname.split(".").nth(0).unwrap(),
+                    fname.split(".").nth(0).unwrap().replace("_", " "),
                     format!("{}/{}/{}", self.url_base, self.page_folder, fname),
                     format!("{} GMT", &pub_date[..pub_date.len() - 6])
                 );
